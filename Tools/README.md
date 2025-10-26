@@ -1,0 +1,7 @@
+### Coer91 DotNet
+
+🚀 NuGet CLI
+```
+nuget setApiKey ????????????????
+nuget push coer91.0.0.0.nupkg -Source https://api.nuget.org/v3/index.json
+```
