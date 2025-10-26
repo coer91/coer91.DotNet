@@ -87,7 +87,7 @@ namespace coer91.Tools
         /// Sets null to string types if it is empty or only contains whitespace.
         /// </summary>
         public static List<T> NoStringEmpty<T>(ICollection<T> value, string[] except = null)
-            => value.Select(x => NoStringEmpty(x, except)).ToList();
+            => [.. value.Select(x => NoStringEmpty(x, except))];
 
 
         /// <summary>
@@ -101,14 +101,14 @@ namespace coer91.Tools
         /// Sets null to string types if it is empty or only contains whitespace.
         /// </summary>
         public static List<T> NoStringEmpty<T>(List<T> value, string[] except = null)
-            => value.Select(x => NoStringEmpty(x, except)).ToList();
+            => [.. value.Select(x => NoStringEmpty(x, except))];
 
 
         /// <summary>
         /// Sets null to string types if it is empty or only contains whitespace.
         /// </summary>
         public static T[] NoStringEmpty<T>(T[] value, string[] except = null)
-            => value.Select(x => NoStringEmpty(x, except)).ToArray();
+            => [.. value.Select(x => NoStringEmpty(x, except))];
 
 
         /// <summary>
