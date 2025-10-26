@@ -10,14 +10,14 @@ namespace coer91.Tools
         protected string _sender = "";
         protected IEnumerable<string> _to = [];
         protected IEnumerable<string> _cc = [];
-        protected string _userName = "";
-        protected string _password = "";
         protected string _subject = "";
         protected string _body = "";
+        protected string _userName = "";
+        protected string _password = "";
 
         //Settings
-        protected string _host;
-        protected int _port;
+        protected string _host = "smtp.gmail.com";
+        protected int _port = 587;
         protected bool _enableSsl = true;
         protected bool _useDefaultCredentials = false;
         protected SmtpDeliveryMethod _deliveryMethod = SmtpDeliveryMethod.Network;

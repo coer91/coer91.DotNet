@@ -1,32 +1,34 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 
 namespace coer91.Tools
 {
     public static class Validations
     {
-        #region IsPrimitiveOrDateTime
+        #region IsNotNavigationProperty
 
         /// <summary>
-        /// Validates whether it is a primitive type or datetime.
+        ///  
         /// </summary>
-        public static bool IsPrimitiveOrDateTime<T>(T obj)
-            => obj is not null && IsPrimitiveOrDateTime(obj.GetType());
-
-
-        /// <summary>
-        /// Validates whether it is a primitive type or datetime.
-        /// </summary>
-        public static bool IsPrimitiveOrDateTime(PropertyInfo property)
-            => IsPrimitiveOrDateTime(property.PropertyType);
+        public static bool IsNotNavigationProperty<T>(T obj)
+            => obj is not null && IsNotNavigationProperty(obj.GetType());
 
 
         /// <summary>
-        /// Validates whether it is a primitive type or datetime. 
+        ///  
         /// </summary>
-        public static bool IsPrimitiveOrDateTime(Type type)
+        public static bool IsNotNavigationProperty(PropertyInfo property)
+            => IsNotNavigationProperty(property.PropertyType);
+
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public static bool IsNotNavigationProperty(Type type)
             => type == typeof(char)
             || type == typeof(string)
             || type == typeof(int)
+            || type == typeof(long)
             || type == typeof(float)
             || type == typeof(double)
             || type == typeof(decimal)
@@ -42,21 +44,21 @@ namespace coer91.Tools
         #region IsString  
 
         /// <summary>
-        /// Validate if it is of string type.
+        /// 
         /// </summary>
         public static bool IsString<T>(T obj)
            => obj is not null && IsString(obj.GetType());
 
 
         /// <summary>
-        /// Validate if it is of string type. 
+        /// 
         /// </summary>
         public static bool IsString(PropertyInfo property)
            => IsString(property.PropertyType);
 
 
         /// <summary>
-        /// Validate if it is of string type. 
+        /// 
         /// </summary>
         public static bool IsString(Type type)
            => type == typeof(string);
@@ -70,11 +72,10 @@ namespace coer91.Tools
         ///  
         /// </summary>
         public static bool IsCollection(object obj)
-            => obj is System.Collections.IEnumerable && obj.GetType() != typeof(string);
+            => obj is IEnumerable && obj is not string;
 
         public static bool IsCollection<T>()
-            => typeof(T).GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-
+            => typeof(T) != typeof(string) && typeof(IEnumerable).IsAssignableFrom(typeof(T));
         #endregion
 
 
@@ -84,7 +85,7 @@ namespace coer91.Tools
         /// Gets an enumerable with the object's properties. 
         /// </summary>
         public static IEnumerable<string> GetProperties(object obj)
-            => IsPrimitiveOrDateTime(obj) ? [] : obj?.GetType().GetProperties().Select(p => p.Name) ?? [];
+            => IsNotNavigationProperty(obj) ? [] : obj?.GetType().GetProperties().Select(p => p.Name) ?? [];
 
         #endregion
 
@@ -95,8 +96,7 @@ namespace coer91.Tools
         /// Validates whether the object has the property. 
         /// </summary>
         public static bool HasProperty(string property, object obj, bool sensitive = true)
-            => !IsPrimitiveOrDateTime(obj) && (sensitive ? GetProperties(obj).Contains(property) : GetProperties(obj).Contains(property, StringComparer.OrdinalIgnoreCase));
-
+            => !IsNotNavigationProperty(obj) && (sensitive ? GetProperties(obj).Contains(property) : GetProperties(obj).Contains(property, StringComparer.OrdinalIgnoreCase));
         #endregion
     }
 }

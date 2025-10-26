@@ -10,9 +10,9 @@ namespace coer91.Tools
         /// <summary>
         /// Swagger UI configuration
         /// </summary> 
-        public static IApplicationBuilder UseSwagger(this IApplicationBuilder app, string title, IWebHostEnvironment environment, bool showProduction = false)
+        public static IApplicationBuilder UseSwagger(this IApplicationBuilder app, string title, IWebHostEnvironment environment, bool showInProduction = false)
         {              
-            if (environment.IsProduction() && !showProduction)
+            if (environment.IsProduction() && !showInProduction)
                 return app; 
 
             app.UseDeveloperExceptionPage();

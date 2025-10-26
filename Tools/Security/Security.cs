@@ -39,11 +39,11 @@ namespace coer91.Tools
             if (string.IsNullOrWhiteSpace(title))
                 title = ProjectName;
 
-            if (string.IsNullOrWhiteSpace(version))
-                version = _configuration.GetSection("Version").Get<string>() ?? string.Empty;
-
             else
                 ProjectName = title;
+
+            if (string.IsNullOrWhiteSpace(version))
+                version = _configuration.GetSection("Version").Get<string>() ?? string.Empty; 
 
             if (_envirotment.IsDevelopment())
                 title += " - Development";
@@ -116,7 +116,7 @@ namespace coer91.Tools
         }
 
 
-        public void AddCorsConfiguration(string policy = "coerPolicy", CorsPolicyBuilder policyBuilder = null)
+        public void AddCorsConfiguration(string policy = "coer91Policy", CorsPolicyBuilder policyBuilder = null)
         {
             _services.AddCors(options =>
             {

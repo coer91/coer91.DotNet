@@ -8,54 +8,51 @@ namespace coer91.Tools
         #region NoNesting
 
         /// <summary>
-        /// Sets NULL to non-primitive types, excluding date and time types.
+        /// Set navigation properties to null.
         /// </summary>
         public static IEnumerable<T> NoNesting<T>(IEnumerable<T> value, string[] except = null)
-            => Validations.IsPrimitiveOrDateTime(typeof(T).GetType()) ? value : value.Select(x => NoNesting(x, except));
+            => Validations.IsNotNavigationProperty(typeof(T).GetType()) ? value : value.Select(x => NoNesting(x, except));
 
 
         /// <summary>
-        /// Sets NULL to non-primitive types, excluding date and time types.
+        /// Set navigation properties to null.
         /// </summary>
         public static List<T> NoNesting<T>(ICollection<T> value, string[] except = null)
-            => Validations.IsPrimitiveOrDateTime(typeof(T).GetType()) ? [.. value] : value.Select(x => NoNesting(x, except)).ToList();
+            => Validations.IsNotNavigationProperty(typeof(T).GetType()) ? [.. value] : value.Select(x => NoNesting(x, except)).ToList();
 
 
         /// <summary>
-        /// Sets NULL to non-primitive types, excluding date and time types.
+        /// Set navigation properties to null.
         /// </summary>
         public static List<T> NoNesting<T>(List<T> value, string[] except = null)
-            => Validations.IsPrimitiveOrDateTime(typeof(T).GetType()) ? value : value.Select(x => NoNesting(x, except)).ToList();
+            => Validations.IsNotNavigationProperty(typeof(T).GetType()) ? value : value.Select(x => NoNesting(x, except)).ToList();
 
 
         /// <summary>
-        /// Sets NULL to non-primitive types, excluding date and time types.
+        /// Set navigation properties to null.
         /// </summary>
         public static T[] NoNesting<T>(T[] value, string[] except = null)
-            => Validations.IsPrimitiveOrDateTime(typeof(T).GetType()) ? value : value.Select(x => NoNesting(x, except)).ToArray();
+            => Validations.IsNotNavigationProperty(typeof(T).GetType()) ? value : value.Select(x => NoNesting(x, except)).ToArray();
 
 
         /// <summary>
-        /// Sets NULL to non-primitive types, excluding date and time types.
+        /// Set navigation properties to null.
         /// </summary>
         public static T NoNesting<T>(T value, string[] except = null)
         {
             try
             {
-                if (value is null)
+                if (value is null || Validations.IsNotNavigationProperty(value))
                     return value;
 
-                except ??= []; 
-
-                if (Validations.IsPrimitiveOrDateTime(value))
-                    return value;
+                except ??= [];  
 
                 Type type = value.GetType();
                 foreach (PropertyInfo propertyInfo in type.GetProperties())
                 {
                     PropertyInfo property = type.GetProperty(propertyInfo.Name);
 
-                    if (except.Any(x => x.ToUpper().Equals(propertyInfo.Name.ToUpper())))
+                    if (except.Any(x => x.Equals(propertyInfo.Name, StringComparison.OrdinalIgnoreCase)))
                     {
                         if (Validations.IsString(property))
                             property.SetValue(value, (string)property.GetValue(value));
@@ -63,7 +60,7 @@ namespace coer91.Tools
                         continue;
                     }
 
-                    if (Validations.IsPrimitiveOrDateTime(property) || Validations.IsPrimitiveOrDateTime(property.GetValue(value)))
+                    if (Validations.IsNotNavigationProperty(property) || Validations.IsNotNavigationProperty(property.GetValue(value)))
                     {
                         if (Validations.IsString(property))
                             property.SetValue(value, (string)property.GetValue(value));
@@ -131,7 +128,7 @@ namespace coer91.Tools
                 if (value is null)
                     return value;
 
-                else if (Validations.IsPrimitiveOrDateTime(value))
+                else if (Validations.IsNotNavigationProperty(value))
                 {
                     value = Validations.IsString(value) && string.IsNullOrWhiteSpace(value as string)
                         ? default : value;
@@ -154,7 +151,7 @@ namespace coer91.Tools
                             continue;
                         }
 
-                        if (Validations.IsPrimitiveOrDateTime(property) || Validations.IsPrimitiveOrDateTime(property.GetValue(value)))
+                        if (Validations.IsNotNavigationProperty(property) || Validations.IsNotNavigationProperty(property.GetValue(value)))
                         {
                             if (Validations.IsString(property) && string.IsNullOrWhiteSpace((string)property.GetValue(value)))
                                 property.SetValue(value, null);

@@ -3,21 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace coer91.Tools
 {
-    public class Transaction<T> : ITransaction<T> where T : DbContext
+    public class Transaction<T>(T context) : ITransaction<T> where T : DbContext
     {
-        private readonly T _context;
-        private IDbContextTransaction _transaction; 
+        private readonly T _context = context;
+        private IDbContextTransaction _transaction;
 
-
-        public Transaction(T context)
-            => _context = context;
-
-
-        public bool HasTransaction => _transaction is not null;
-
-
-        public void ClearTracker()
-            => _context.ChangeTracker.Clear();
+        public bool HasTransaction => _transaction is not null; 
 
 
         public async Task BeginTransaction()
@@ -42,5 +33,9 @@ namespace coer91.Tools
                 _transaction = null;
             }
         }
+
+
+        public void ClearTracker()
+           => _context.ChangeTracker.Clear();
     } 
 }

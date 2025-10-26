@@ -13,6 +13,7 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/coer91/coer91.DotNet</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
+	  <Description>Plugin for dotnet 9 with Entity Framework</Description>
   </PropertyGroup>
 
 	<ItemGroup>
