@@ -10,7 +10,17 @@
 	  <RootNamespace>coer91.Tools</RootNamespace>
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <Nullable>disable</Nullable>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryUrl>https://github.com/coer91/coer91.DotNet</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
