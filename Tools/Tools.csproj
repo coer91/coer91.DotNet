@@ -3,7 +3,7 @@
   <PropertyGroup>
 	  <Version>0.0.0</Version>
 	  <Title>coer91.Tools</Title>
-	  <PackageId>coer91</PackageId>
+	  <PackageId>coer91.Tools</PackageId>
 	  <Authors>Christian Omar Escamilla Rodríguez</Authors>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	  <TargetFramework>net9.0</TargetFramework>
@@ -14,13 +14,6 @@
 	  <RepositoryUrl>https://github.com/coer91/coer91.DotNet</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
@@ -33,5 +26,12 @@
 		<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 </Project>
