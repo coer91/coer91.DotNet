@@ -109,5 +109,11 @@ namespace coer91.Tools
         public static DateOnly? ToDateOnly(this string value)
             => Dates.ToDateOnly(value);
 
+
+        /// <summary>
+        /// 
+        /// </summary> 
+        public static string ConcatName(this string value, string[] args)
+            => Strings.ConcatName([value, .. args]);
     }
 }

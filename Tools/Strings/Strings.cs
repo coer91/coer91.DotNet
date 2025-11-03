@@ -190,5 +190,9 @@ namespace coer91.Tools
             => dataRow[column].ToString();
 
         #endregion 
+
+
+        public static string ConcatName(params string[] args)
+            => string.Join(" ", args.Select(CleanUpBlanks).Where(x => !string.IsNullOrWhiteSpace(x))); 
     }
 }

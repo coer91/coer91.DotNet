@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <Version>0.0.1</Version>
+	  <Version>0.0.2</Version>
 	  <Title>coer91.Tools</Title>
 	  <PackageId>coer91.Tools</PackageId>
 	  <Authors>Christian Omar Escamilla Rodríguez</Authors>
