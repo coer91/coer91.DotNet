@@ -7,9 +7,9 @@ namespace coer91.Tools
         public static IServiceCollection AddComments(this IServiceCollection context)
         {
             context.AddSwaggerGen(setup => {
-                foreach (string xmlPath in Directory.EnumerateFiles(AppContext.BaseDirectory, "*.xml"))
-                    setup.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);                
-            });
+                foreach (string xmlPath in Directory.EnumerateFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly))
+                    setup.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+            }); 
 
             return context;
         }
